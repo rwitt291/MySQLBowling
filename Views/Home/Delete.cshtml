@@ -1,0 +1,10 @@
+﻿@{
+    ViewData["Title"] = "Delete Bowler";
+}
+
+<h2>Confirm Deletion</h2>
+
+<form method="post" asp-controller="Home" asp-action="Delete">
+    <button type="submit">Delete</button>
+    <a asp-controller="Home" asp-action="Index" class="btn btn-primary">Cancel</a>
+</form>

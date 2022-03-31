@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
 using MySQLBowling.Models;
 using System;
@@ -18,19 +19,73 @@ namespace MySQLBowling.Controllers
             _context = temp;
         }
 
+
         public IActionResult Index()
         {
             var bow = _context.Bowlers.ToList();
             return View(bow);
         }
 
-        public IActionResult Edit ()
+        [HttpGet]
+        public IActionResult FillOutBowlerForm()
         {
-            return View();
+            ViewBag.Teams = _context.Teams.ToList();
+
+            return View("BowlerForm");
         }
-        public IActionResult Delete()
+
+        [HttpPost]
+        public IActionResult FillOutBowlerForm(Bowler ar)
         {
-            return View();
+            if (ModelState.IsValid)
+            {
+                _context.Add(ar);
+                _context.SaveChanges();
+
+                return View("Home", ar);
+            }
+            else
+            {
+                ViewBag.Teams = _context.Teams.ToList();
+
+                return View(ar);
+            }
+
+        }
+
+
+
+        [HttpGet]
+        public IActionResult Edit(int bowlerid)
+        {
+            ViewBag.Teams = _context.Teams.ToList();
+
+            var bowler = _context.Bowlers.Single(x => x.BowlerID == bowlerid);
+
+            return View("BowlerForm", bowler);
+        }
+
+        [HttpPost]
+        public IActionResult Edit(Bowler bowler)
+        {
+            _context.Update(bowler);
+            _context.SaveChanges();
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Delete(int bowlerid)
+        {
+            var bowler = _context.Bowlers.Single(x => x.BowlerID == bowlerid);
+            return View(bowler);
+        }
+        [HttpPost]
+        public IActionResult Delete(Bowler ar)
+        {
+            _context.Bowlers.Remove(ar);
+            _context.SaveChanges();
+            return RedirectToAction("Index");
         }
     }
 }

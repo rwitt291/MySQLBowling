@@ -2,19 +2,19 @@
 }
 @model Bowler
 
-<h2>Bowler Details</h2>
+<h2>Check out now</h2>
+
 
 <form method="post" asp-controller="Bowler" asp-action="BowlerForm">
 
     <div asp-validation-summary="All" class="text-danger"></div>
 
-    <h4>Bowler</h4>
+    <h4>Bowler Information</h4>
 
     <div class="form-group">
         <label asp-for="BowlerFirstName">First Name:</label>
         <input asp-for="BowlerFirstName" class="form-control" />
     </div>
-
     <div class="form-group">
         <label asp-for="BowlerMiddleInit">Middle Initial:</label>
         <input asp-for="BowlerMiddleInit" class="form-control" />
@@ -25,7 +25,7 @@
     </div>
     <div class="form-group">
         <label asp-for="BowlerPhoneNumber">Phone Number:</label>
-        <input asp-for="Phone Number" class="form-control" />
+        <input asp-for="BowlerPhoneNumber" class="form-control" />
     </div>
     <div class="form-group">
         <label asp-for="TeamID">Team ID:</label>
@@ -50,8 +50,6 @@
         <input asp-for="BowlerZip" class="form-control" />
     </div>
 
-    <div class="float-end">
-        <input class="btn btn-primary" type="submit" value="Submit" />
-    </div>
+    <button type="submit">Submit Bowler</button>
 
 </form>
